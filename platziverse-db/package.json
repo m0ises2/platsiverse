@@ -1,0 +1,27 @@
+{
+  "name": "platziverse-db",
+  "version": "1.0.0",
+  "description": "A simple IoT platform - DB Module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m0ises2/platsiverse.git"
+  },
+  "author": "m0ises2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m0ises2/platsiverse/issues"
+  },
+  "homepage": "https://github.com/m0ises2/platsiverse#readme",
+  "devDependencies": {
+    "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.26.0"
+  }
+}
