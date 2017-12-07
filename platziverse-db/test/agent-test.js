@@ -46,7 +46,6 @@ test.beforeEach(async () => {
   AgentStub.update = sandbox.stub()
   AgentStub.update.withArgs(single, uuidArgs).returns(Promise.resolve(single))
 
-
   // Model findById
   AgentStub.findById = sandbox.stub()
   AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.byId(id)))
@@ -92,5 +91,4 @@ test.serial('Agent#createOrUpdate - exits', async t => {
   t.true(AgentStub.update.calledOnce, 'update should be called once.')
 
   t.deepEqual(agent, single, 'agent should be the same.')
-
 })

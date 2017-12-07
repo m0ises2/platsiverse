@@ -22,17 +22,59 @@ module.exports = function setupAgent (AgentModel) {
     if (exits) { // Lo actualizo
       const updated = await AgentModel.update(agent, cond)
 
-      return  updated ? await AgentModel.findOne(cond) : exits
+      return updated ? AgentModel.findOne(cond) : exits
     }
 
     let agentCreated = AgentModel.create(AgentModel)
 
     return agentCreated.toJSON()
+  }
 
+  function findByUuid (uuid) {
+    const cond = {
+      where: {
+        uuid: {
+          [Op.eq]: uuid
+        }
+      }
+    }
+
+    return AgentModel.findOne(cond)
+  }
+
+  function findAll () {
+    return AgentModel.findAll()
+  }
+
+  function findConnected () {
+    const cond = {
+      connected: {
+        [Op.eq]: true
+      }
+    }
+
+    return AgentModel.findAll(cond)
+  }
+
+  function findByUsername (usrnmae) {
+    const cond = {
+      username: {
+        [Op.eq]: usrnmae
+      },
+      connected: {
+        [Op.eq]: true
+      }
+    }
+
+    return AgentModel.findAll(cond)
   }
 
   return {
     findById,
-    createOrUpdate
+    createOrUpdate,
+    findByUuid,
+    findAll,
+    findConnected,
+    findByUsername
   }
 }
