@@ -1,7 +1,10 @@
 'use strict'
 
 const setupAgentModel = require('./models/agent')
+const setupAgent = require('./lib/agent')
+
 const setupMetricModel = require('./models/metric')
+
 const setupDatabase = require('./lib/db')
 const defaults = require('defaults')
 
@@ -36,7 +39,7 @@ module.exports = async function (config) {
   }
 
   // Instancias de los modelos ya vinculados con sus respectivas librerías y relacionados con los demas modelos:
-  const Agent = {}
+  const Agent = setupAgent(AgentModel)
   const Metric = {}
 
   return {

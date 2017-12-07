@@ -20,6 +20,8 @@
   "homepage": "https://github.com/m0ises2/platsiverse#readme",
   "devDependencies": {
     "ava": "^0.24.0",
+    "proxyquire": "^1.8.0",
+    "sinon": "^4.1.2",
     "sqlite": "^2.9.0",
     "standard": "^10.0.3"
   },
