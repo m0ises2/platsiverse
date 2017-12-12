@@ -25,7 +25,7 @@ module.exports = function setupAgent (AgentModel) {
       return updated ? AgentModel.findOne(cond) : exits
     }
 
-    let agentCreated = AgentModel.create(AgentModel)
+    let agentCreated = AgentModel.create(agent)
 
     return agentCreated.toJSON()
   }

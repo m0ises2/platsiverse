@@ -6,7 +6,13 @@ const Op = Sequelize.Op
 module.exports = function setupMetric (MetricModel, AgentModel) {
   async function create (uuid, metric) {
     // Primero buscamos al agente en la base de datos:
-    let exitsAgent = await AgentModel.findByUuid(uuid)
+    let exitsAgent = await AgentModel.findOne({
+      where: {
+        uuid: {
+          [Op.eq]: uuid
+        }
+      }
+    })
 
     if (exitsAgent) { // si existe:
       Object.assign(metric, { agentId: exitsAgent.id }) // También puede ser metric.agentId = exitsAgent.id
@@ -39,16 +45,16 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
       where: {
         type
       },
-      limit: 20,
-      order: 'createdA DESC',
+      //limit: 20,
+      order: [ ['createdAt', 'DESC'] ],
       include: [{
         model: AgentModel,
-        attributes: [],
+        attributes: ['pid'],
         where: {
           uuid
-        },
-        raw: true
-      }]
+        }
+      }],
+      raw: true
     })
   }
 
