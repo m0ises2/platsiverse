@@ -1,0 +1,19 @@
+{
+  "name": "platziverse-mqtt",
+  "version": "1.0.0",
+  "description": "A simple IoT Platform - MQTT Server",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mqtt"
+  ],
+  "author": "m0ises2",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.14.0",
+    "standard": "^10.0.3"
+  }
+}
