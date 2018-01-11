@@ -112,7 +112,7 @@ server.on('published', async (packet, client) => {
           })
         }
         // Store Metrics:
-        for (const iterator of payload.metrics) {
+        for (const iterator of payload.metrics) { // El ciclo forOf, itera sobre el array de métricas y va guardando una por una, de manera serial/secuencial.
           let m
           try {
             m = await Metric.create(agent.uuid, iterator)
