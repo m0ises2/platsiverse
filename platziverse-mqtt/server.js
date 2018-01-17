@@ -45,6 +45,7 @@ server.on('ready', async () => {
 
 server.on('clientConnected', client => {
   debug(`Client Connected: ${client.id}`)
+  console.log(`Client Connected: ${client.id}`)
   clients.set(client.id, null)
 })
 
@@ -62,7 +63,7 @@ server.on('clientDisconnected', async client => {
     }
     // Delete from client's map:
     clients.delete(client.id)
-    server.pusblish({
+    server.publish({
       topic: 'agent/disconnected',
       payload: JSON.stringify({
         agent: {
@@ -84,7 +85,6 @@ server.on('published', async (packet, client) => {
       break
     case 'agent/message':
       const payload = parsePayload(packet.payload)
-      console.log(payload)
       if (payload) {
         payload.agent.connected = true
 
