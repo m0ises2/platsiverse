@@ -33,7 +33,6 @@ const server = new mosca.Server(settings)
 const clients = new Map()
 
 // Events:
-
 server.on('ready', async () => {
   const services = await db(config).catch(handleFatalError)
 

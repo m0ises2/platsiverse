@@ -18,7 +18,6 @@ const options = {
   }
 }
 
-
 class PlatziverseAgent extends EventEmitter {
   // Propiedades:
   // Métodos:
