@@ -48,8 +48,10 @@ module.exports = function setupAgent (AgentModel) {
 
   function findConnected () {
     const cond = {
-      connected: {
-        [Op.eq]: true
+      where: {
+        connected: {
+          [Op.eq]: true
+        }
       }
     }
 
@@ -58,11 +60,13 @@ module.exports = function setupAgent (AgentModel) {
 
   function findByUsername (usrnmae) {
     const cond = {
-      username: {
-        [Op.eq]: usrnmae
-      },
-      connected: {
-        [Op.eq]: true
+      where: {
+        username: {
+          [Op.eq]: usrnmae
+        },
+        connected: {
+          [Op.eq]: true
+        }
       }
     }
 

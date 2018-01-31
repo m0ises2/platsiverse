@@ -5,6 +5,8 @@ const express = require('express')
 const db = require('platziverse-db')
 const config = require('./config')
 const asyncify = require('express-asyncify')
+const auth = require('express-jwt')
+const guard = require('express-jwt-permissions')()
 
 const api = asyncify(express.Router())
 
@@ -25,11 +27,22 @@ api.use('*', async (req, res, next) => {
 })
 
 // Rutas:
-api.get('/agents', async (req, res, next) => {
+api.get('/agents', auth(config.auth), async (req, res, next) => {
   debug('Request has come to /agents')
   let agents = []
+  const { user } = req
+  if(!user || !user.username) {
+    return next(new Error('Not authorized'))
+  }
+
   try {
-    agents = await Agent.findConnected()
+    if (user.admin) {
+      console.log('Soy admin.')
+      agents = await Agent.findConnected()
+    } else {
+      console.log('No soy admin.')
+      agents = await Agent.findByUsername()      
+    }
   } catch (error) {
     next(error)
   }
@@ -51,7 +64,7 @@ api.get('/agent/:uuid', async (req, res, next) => {
   res.send(agent)
 })
 
-api.get('/metrics/:uuid', async (req, res, next) => {
+api.get('/metrics/:uuid', auth(config.auth), guard.check(['metrics:read']), async (req, res, next) => {
   const { uuid } = req.params
   debug(`request to /metrics/${uuid}`)
   let metrics = []
