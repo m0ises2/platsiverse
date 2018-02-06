@@ -24,8 +24,8 @@ agent.connect()
 
 // This agent only:
 agent.on('connected', handler)
-agent.on('disconnected', handler)
 agent.on('message', handler)
+agent.on('disconnected', handler)
 
 // Other agents:
 agent.on('agent/connected', handler)

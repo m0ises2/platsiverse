@@ -6,6 +6,8 @@ const http = require('http')
 const express = require('express')
 const path = require('path')
 const socketio = require('socket.io')
+const PlatziverseAgent = require('platziverse-agent')
+const { pipe } = require('./utils')
 
 // Puerto de conexión:
 const port = process.env.PORT || 8080
@@ -15,6 +17,8 @@ const server = http.createServer(app)
 
 // Instancia de socketIo
 const io = socketio(server)
+// Instancia del Agent:
+const agent = new PlatziverseAgent()
 
 // Middlewares:
 // Sirviendo los archivos estáticos:
@@ -22,16 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Manejo de conexiones al socket.io
 io.on('connect', socket => {
-  debug(`Connected ${socket.id}`)
-  // Mensajes que llegan al servidor socketIo
-  socket.on('agent/message', payload => {
-    console.log('Estoy escribiendo en el server', payload)
-  })
-
-  setInterval( () => {
-    // Mensajes que se emiten desde el servidor:
-    socket.emit('agent/message', { agent: 'xxx-yyy' })
-  }, 2000)
+  debug(`Connected ${socket.id}`)  
+  pipe(agent, socket)
 })
 
 // Manejo de errores graves de la aplicación:
@@ -47,4 +43,5 @@ process.on('unhandledRejection', handleFatalError)
 
 server.listen(port, () => {
   console.log(`${chalk.green('Platziverse-web')} server listening on ${port}`)
+  agent.connect()
 })
