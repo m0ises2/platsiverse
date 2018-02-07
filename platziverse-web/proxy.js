@@ -29,6 +29,7 @@ api.get('/agents', async (req, res, next) => {
 })
 
 api.get('/agent/:uuid', async (req, res, next) => {
+  console.log('dame agente')
   const { uuid } = req.params
   const options = {
     method: 'GET',

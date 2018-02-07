@@ -17,11 +17,7 @@ const port = process.env.PORT || 8080
 const app = asyncify(express())
 const server = http.createServer(app)
 const io = socketio(server)
-const agent = new PlatziverseAgent({
-  mqtt: {
-    host: mqttHost
-  }
-})
+const agent = new PlatziverseAgent()
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', proxy)

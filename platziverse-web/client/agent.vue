@@ -98,9 +98,54 @@ module.exports = {
 
   methods: {
     async initialize() {
-      
+      const { uuid } = this
+      const options = {
+        method: 'GET',
+        url: `http://localhost:8080/agent/${uuid}`,
+        json: true
+      }
+      let result = null
+      try {
+        result = await request(options)
+      } catch (error) {
+        this.error = error.error.error
+        return
+      }
+      console.log(result)
+      this.name = result.name
+      this.hostname = result.hostname
+      this.connected = result.connected
+      this.pid = result.pid
+
+      this.loadMetrics()
     },
-    
+    async loadMetrics () {
+      const { uuid } = this
+      const options = {
+        method: 'GET',
+        url: `http://localhost:8080/metrics/${uuid}`,
+        json: true
+      }
+
+      let result = null
+      try {
+        result = await request(options)
+      } catch (error) {
+        this.error = error.error.error
+        return 
+      }
+      this.metrics = result
+      
+      this.startRealTime()
+    },
+    startRealTime () {
+      const { uuid, socket } = this
+      socket.on('agent/disconnected', payload => {
+        if (payload.agent.uuid === uuid) {
+          this.connected = false
+        }
+      })
+    }, 
     toggleMetrics() {
       this.showMetrics = this.showMetrics ? false : true
     }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <metric uuid="13bb8f2f-1863-4622-966f-1ed03fc955c6" type="callbackMetric" :socket="socket"></metric>
     <agent
       v-for="agent in agents"
       :uuid="agent.uuid"
@@ -40,7 +39,27 @@ module.exports = {
 
   methods: {
     async initialize () {
-      
+      const options = {
+        method: 'GET',
+        url: `http://localhost:8080/agents`,
+        json: true
+      }
+      let result = null
+      try {
+        result = await request(options)
+      } catch (error) {
+        this.error = error.error.error
+      }
+      console.log(result)
+      this.agents = result
+
+      socket.on('agent/connected', payload => {
+        const { uuid } = payload.agent
+        const exists = this.agents.find(ag => ag.uuid === uuid)
+        if (!exists) {
+          this.agents.push(payload.agent)
+        }
+      })
     }
   }
 }
