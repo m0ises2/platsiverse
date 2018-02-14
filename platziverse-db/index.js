@@ -1,5 +1,6 @@
 'use strict'
 
+require('longjohn')
 const setupAgentModel = require('./models/agent')
 const setupAgent = require('./lib/agent')
 
