@@ -101,7 +101,7 @@ module.exports = {
       const { uuid } = this
       const options = {
         method: 'GET',
-        url: `http://localhost:8080/agent/${uuid}`,
+        url: `${serverHost}/agent/${uuid}`,
         json: true
       }
       let result = null
@@ -111,7 +111,7 @@ module.exports = {
         this.error = error.error.error
         return
       }
-      console.log(result)
+
       this.name = result.name
       this.hostname = result.hostname
       this.connected = result.connected
@@ -123,7 +123,7 @@ module.exports = {
       const { uuid } = this
       const options = {
         method: 'GET',
-        url: `http://localhost:8080/metrics/${uuid}`,
+        url: `${serverHost}/metrics/${uuid}`,
         json: true
       }
 

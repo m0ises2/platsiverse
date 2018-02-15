@@ -44,7 +44,7 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
       where: {
         type
       },
-      //limit: 20,
+      // limit: 20,
       order: [ ['createdAt', 'DESC'] ],
       include: [{
         model: AgentModel,

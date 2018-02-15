@@ -41,7 +41,7 @@ module.exports = {
     async initialize () {
       const options = {
         method: 'GET',
-        url: `http://localhost:8080/agents`,
+        url: `${serverHost}/agents`,
         json: true
       }
       let result = null
@@ -50,7 +50,7 @@ module.exports = {
       } catch (error) {
         this.error = error.error.error
       }
-      console.log(result)
+
       this.agents = result
 
       socket.on('agent/connected', payload => {
