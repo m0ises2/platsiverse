@@ -34,6 +34,6 @@
     "minimist": "^1.2.0",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.26.0"
+    "sequelize": "^5.15.1"
   }
 }
